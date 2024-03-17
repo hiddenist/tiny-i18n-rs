@@ -4,16 +4,18 @@
         <meta charset="utf-8" />
         <title>i18n Rust Demo</title>
         <style>
+            * {
+                box-sizing: border-box;
+            }
+
             body {
                 margin: 0;
                 padding: 0;
                 font-family: Arial, sans-serif;
                 background-color: #f0f0f0;
-                line-height: 1.5;
             }
 
             main {
-                box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 padding: 2rem;
@@ -22,7 +24,7 @@
             }
 
             p {
-                max-width: 80ch;
+                max-width: 60ch;
             }
 
             h1 {
@@ -42,7 +44,8 @@
                 display: flex;
                 align-items: center;
                 gap: 0.5rem;
-                font-size: smaller;
+                font-size: x-small;
+                text-transform: uppercase;
             }
 
             select {
@@ -50,6 +53,7 @@
                 border-radius: 0.25rem;
                 border: 1px solid #ccc;
                 background-color: #fff;
+                color: #666;
             }
         </style>
     </head>
