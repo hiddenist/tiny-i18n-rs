@@ -54,3 +54,29 @@ select {
     background-color: #fff;
     color: #666;
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1d1d20;
+        color: #fff;
+    }
+
+    h1,
+    p {
+        color: #fff;
+    }
+
+    hr {
+        border-top: 1px solid #616365;
+    }
+
+    a {
+        color: #abdbec;
+    }
+
+    select {
+        background-color: #111;
+        color: #fff;
+        border-color: #5a6065;
+    }
+}
