@@ -1,17 +1,17 @@
-use super::Message;
+use super::Msg;
 
-pub fn m(msg: Message) -> &'static str {
+pub fn m(msg: Msg) -> &'static str {
     match msg {
-        Message::Welcome => "¡Bienvenido!",
-        Message::Introduction => "Actualmente estoy aprendiendo Rust. Esta es una pequeña aplicación web construida con Yew que demuestra un sistema de internacionalización simple.",
-        Message::SelectLanguageLabel => "Idioma:",
-        Message::Language(lang) => match lang {
+        Msg::Welcome => "¡Bienvenido!",
+        Msg::Introduction => "Actualmente estoy aprendiendo Rust. Esta es una pequeña aplicación web construida con Yew que demuestra un sistema de internacionalización simple.",
+        Msg::SelectLanguageLabel => "Idioma:",
+        Msg::Language(lang) => match lang {
             super::Lang::De => "Alemán",
             super::Lang::En => "Inglés",
             super::Lang::Es => "Español",
             super::Lang::Fr => "Francés",
             super::Lang::Jp => "Japonés",
         },
-        Message::ViewCodeLink => "Ver el código en GitHub",
+        Msg::ViewCodeLink => "Ver el código en GitHub",
     }
 }

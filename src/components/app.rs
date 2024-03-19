@@ -1,27 +1,30 @@
-use crate::lang::*;
-use yew::prelude::*;
-
-use crate::components::select_language::SelectLanguage;
+use super::lang::SelectLanguage;
+use super::lang::{use_message, Message, Msg};
+use crate::components::lang::LangContextProvider;
+use yew::prelude::{function_component, html, Html};
 
 #[function_component]
 pub fn App() -> Html {
-    let lang = use_state_eq(|| Lang::En);
+    html! {
+        <LangContextProvider>
+            <Main />
+        </LangContextProvider>
+    }
+}
 
-    let select_lang = {
-        let lang_value_handle = lang.clone();
-        Callback::from(move |new_lang: Lang| lang_value_handle.set(new_lang))
-    };
-
+#[function_component]
+fn Main() -> Html {
+    let title = use_message(Msg::Welcome);
     html! {
         <main>
-            <SelectLanguage lang={*lang} onselect={select_lang} />
+            <SelectLanguage />
             <hr />
 
-            <h1>{ m(*lang, Message::Welcome) }</h1>
-            <p>{ m(*lang, Message::Introduction)  }</p>
+            <h1>{title}</h1>
+            <p><Message message={Msg::Introduction} /></p>
 
             <p>
-                <a href="https://github.com/hiddenist/tiny-i18n-rs"> { m(*lang, Message::ViewCodeLink) }</a>
+                <a href="https://github.com/hiddenist/tiny-i18n-rs"><Message message={Msg::ViewCodeLink} /></a>
             </p>
         </main>
     }
