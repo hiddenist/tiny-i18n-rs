@@ -7,7 +7,8 @@ pub enum Lang {
     De,
 }
 
-pub enum Message {
+#[derive(PartialEq, Copy, Clone)]
+pub enum Msg {
     Welcome,
     Introduction,
     SelectLanguageLabel,
@@ -21,7 +22,7 @@ mod es;
 mod fr;
 mod jp;
 
-pub fn m(lang: Lang, msg: Message) -> &'static str {
+pub fn get_translated_message(lang: Lang, msg: Msg) -> &'static str {
     match lang {
         Lang::Jp => jp::m(msg),
         Lang::En => en_us::m(msg),
@@ -43,7 +44,7 @@ impl LangOption {
         LangOption {
             lang,
             value,
-            text: m(lang, Message::Language(lang)),
+            text: get_translated_message(lang, Msg::Language(lang)),
         }
     }
 }
