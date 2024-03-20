@@ -14,16 +14,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: wasm32-unknown-unknown
-          override: true
-          profile: minimal
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
+
+      - name: Install wasm target
+        run: |
+          rustup target add wasm32-unknown-unknown
 
       - name: Install trunk
-        uses: jetli/trunk-action@v0.1.0
+        uses: jetli/trunk-action@v0.4.0
         with:
           version: 'latest'
 
