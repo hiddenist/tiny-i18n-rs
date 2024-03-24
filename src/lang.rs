@@ -1,10 +1,16 @@
-#[derive(PartialEq, Copy, Clone)]
+#[derive(PartialEq, Copy, Clone, Debug)]
 pub enum Lang {
-    Jp,
+    De,
     En,
     Es,
     Fr,
-    De,
+    Ja,
+}
+
+impl std::fmt::Display for Lang {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "{:?}", self)
+    }
 }
 
 #[derive(PartialEq, Copy, Clone)]
@@ -20,15 +26,29 @@ mod de;
 mod en_us;
 mod es;
 mod fr;
-mod jp;
+mod ja;
 
 pub fn get_translated_message(lang: Lang, msg: Msg) -> &'static str {
     match lang {
-        Lang::Jp => jp::m(msg),
+        Lang::Ja => ja::m(msg),
         Lang::En => en_us::m(msg),
         Lang::Es => es::m(msg),
         Lang::Fr => fr::m(msg),
         Lang::De => de::m(msg),
+    }
+}
+
+pub fn lang_from_string(lang: String) -> Option<Lang> {
+    let lang = lang.to_lowercase();
+    let lang = &lang[..2];
+
+    match lang {
+        "de" => Some(Lang::De),
+        "en" => Some(Lang::En),
+        "es" => Some(Lang::Es),
+        "fr" => Some(Lang::Fr),
+        "ja" => Some(Lang::Ja),
+        _ => None,
     }
 }
 
@@ -55,6 +75,6 @@ pub fn select_language_options() -> Vec<LangOption> {
         LangOption::new(Lang::En, "en"),
         LangOption::new(Lang::Es, "es"),
         LangOption::new(Lang::Fr, "fr"),
-        LangOption::new(Lang::Jp, "jp"),
+        LangOption::new(Lang::Ja, "jp"),
     ]
 }

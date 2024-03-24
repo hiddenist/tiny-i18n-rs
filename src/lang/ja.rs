@@ -10,7 +10,7 @@ pub fn m(msg: Msg) -> &'static str {
             super::Lang::En => "英語",
             super::Lang::Es => "スペイン語",
             super::Lang::Fr => "フランス語",
-            super::Lang::Jp => "日本語",
+            super::Lang::Ja => "日本語",
         },
         Msg::ViewCodeLink => "GitHubでコードを表示",
     }
