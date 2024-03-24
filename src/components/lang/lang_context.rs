@@ -31,7 +31,7 @@ impl Reducible for LangState {
 impl Default for LangState {
     fn default() -> Self {
         LangState {
-            lang: lang::Lang::En,
+            lang: get_navigator_lang().unwrap_or(lang::Lang::En),
         }
     }
 }
@@ -39,6 +39,18 @@ impl Default for LangState {
 #[derive(Properties, PartialEq)]
 pub struct Props {
     pub children: Html,
+}
+
+pub fn get_navigator_lang() -> Option<lang::Lang> {
+    let window = web_sys::window().expect("no global `window` exists");
+
+    match window.navigator().language() {
+        Some(lang) => {
+            // console::debug_1(&lang.clone().into());
+            lang::lang_from_string(lang)
+        }
+        None => None,
+    }
 }
 
 #[function_component]
