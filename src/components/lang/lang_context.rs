@@ -44,13 +44,27 @@ pub struct Props {
 pub fn get_navigator_lang() -> Option<lang::Lang> {
     let window = web_sys::window().expect("no global `window` exists");
 
-    match window.navigator().language() {
-        Some(lang) => {
-            // console::debug_1(&lang.clone().into());
-            lang::lang_from_string(lang)
+    if let Some(first_lang) = window.navigator().language() {
+        if let Some(lang) = lang::lang_from_string(first_lang) {
+            return Some(lang);
         }
-        None => None,
     }
+
+    let languages = window.navigator().languages();
+    for i in 0..languages.length() {
+        let lang_string = languages.get(i).as_string();
+
+        match lang_string {
+            Some(lang) => {
+                if let Some(lang) = lang::lang_from_string(lang) {
+                    return Some(lang);
+                }
+            }
+            None => continue,
+        }
+    }
+
+    None
 }
 
 #[function_component]
